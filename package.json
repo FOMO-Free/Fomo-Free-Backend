@@ -1,0 +1,24 @@
+{
+  "name": "larson_group_planner_backend",
+  "version": "1.0.0",
+  "description": "Backend for accessing Group Planner API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run",
+    "resetdb": "npm run rollback && npm run migrate && npm run seed"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loshjarson/Larson_Group_Planner_Backend.git"
+  },
+  "author": "Joshua Larson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loshjarson/Larson_Group_Planner_Backend/issues"
+  },
+  "homepage": "https://github.com/loshjarson/Larson_Group_Planner_Backend#readme"
+}
