@@ -14,7 +14,7 @@ exports.up = function(knex) {
         tbl.string("group_description");
         tbl.string("group_password", 128);
         tbl
-            .integer("user_id")
+            .integer("creator")
             .unsigned()
             .notNullable()
             .references("id")
