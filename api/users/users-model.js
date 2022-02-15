@@ -1,13 +1,9 @@
 const db = require("../../data/dbConfig");
 
-const findAll = () => {
-  return db("users").select("id", "username","email");
-};
 
 const findById = (id) => {
   return db("users").where("id", id).first();
 };
-
 
 const findByUsername = (username) => {
   return db("users").where("username", username).first();
@@ -33,7 +29,6 @@ const remove = async (id) => {
 };
 
 module.exports = {
-  findAll,
   findById,
   findByUsername,
   findByEmail,
