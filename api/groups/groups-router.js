@@ -7,7 +7,7 @@ router.get("/:id", (req, res, next) => {
       .then(group => {
         res.status(200).json(group);
       })
-      .catch(next);
+      .catch(next(err));
 });
   
   
@@ -16,7 +16,7 @@ router.put("/:id", (req, res, next) => {
       .then(group => {
         res.status(200).json(group);
       })
-      .catch(next);
+      .catch(next(err));
 });
   
   
@@ -25,7 +25,7 @@ router.delete("/:id", (req, res, next) => {
       .then(deletedGroup => {
         res.status(200).json(deletedGroup);
       })
-      .catch(next);
+      .catch(next(err));
 });
   
 module.exports = router;

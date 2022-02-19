@@ -5,7 +5,7 @@ const Groups = require("../groups/groups-model")
 
 
 
-router.get("/:groupid", (req, res, next) => {
+router.get("/group/:groupid", (req, res, next) => {
   GroupUser.findByGroupId(req.params.groupid)
     .then(connections => {
       const users = [];
@@ -23,7 +23,7 @@ router.get("/:groupid", (req, res, next) => {
 });
 
 
-router.get("/:userid", (req, res, next) => {
+router.get("/user/:userid", (req, res, next) => {
   GroupUser.findByUserId(req.params.userid)
     .then(connections => {
       const groups = [];
