@@ -76,9 +76,9 @@ exports.up = function(knex) {
     
     .createTable("choices", (tbl) => {
         tbl.increments()
-        tbl.string("what", 256).notNullable();
-        tbl.datetime("when", {precision: 6}).notNullable();
-        tbl.string("where").notNullable();
+        tbl.string("what", 256);
+        tbl.datetime("when", {precision: 6});
+        tbl.string("where");
         tbl
             .integer("poll_id")
             .unsigned()
