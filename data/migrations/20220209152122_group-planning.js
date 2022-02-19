@@ -1,3 +1,4 @@
+const { table } = require("console");
 
 exports.up = function(knex) {
     return knex.schema
@@ -10,11 +11,11 @@ exports.up = function(knex) {
 
     .createTable("groups", (tbl) => {
         tbl.increments();
-        tbl.string("group_name", 128).notNullable();
-        tbl.string("group_description");
-        tbl.string("group_password", 128);
+        tbl.string("name", 128).notNullable();
+        tbl.string("description");
+        tbl.string("password", 128);
         tbl
-            .integer("user_id")
+            .integer("creator")
             .unsigned()
             .notNullable()
             .references("id")
@@ -44,9 +45,10 @@ exports.up = function(knex) {
     
     .createTable("events", (tbl) => {
       tbl.increments();
-      tbl.string("event_what", 256).notNullable();
-      tbl.timestamp("event_when").notNullable();
-      tbl.string("event_where").notNullable();
+      tbl.string("what", 256).notNullable();
+      tbl.datetime("when", {precision: 6}).notNullable();
+      tbl.string("where").notNullable();
+      tbl.boolean("poll").notNullable();
       tbl
         .integer("group_id")
         .unsigned()
@@ -55,11 +57,43 @@ exports.up = function(knex) {
         .inTable("groups")
         .onUpdate("CASCADE")
         .onDelete("CASCADE");
+    })
+
+    .createTable("polls", (tbl) => {
+        tbl.increments();
+        tbl.timestamp("created at").notNullable();
+        tbl.datetime("expiration", {precision: 6}).notNullable();
+        tbl.boolean("active").notNullable();
+        tbl
+            .integer("event_id")
+            .unsigned()
+            .notNullable()
+            .references("id")
+            .inTable("events")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
+    })
+    
+    .createTable("choices", (tbl) => {
+        tbl.increments()
+        tbl.string("what", 256).notNullable();
+        tbl.datetime("when", {precision: 6}).notNullable();
+        tbl.string("where").notNullable();
+        tbl
+            .integer("poll_id")
+            .unsigned()
+            .notNullable()
+            .references("id")
+            .inTable("polls")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
     });
 };
 
 exports.down = function(knex) {
     return knex.schema
+    .dropTableIfExists("choices")
+    .dropTableIfExists("polls")
     .dropTableIfExists("events")
     .dropTableIfExists("usersgroupslink")
     .dropTableIfExists("groups")
