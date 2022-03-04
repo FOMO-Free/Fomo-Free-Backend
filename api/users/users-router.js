@@ -12,6 +12,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 
+
 router.put("/:id", (req, res, next) => {
   Users.update(req.params.id, req.body)
     .then(user => {

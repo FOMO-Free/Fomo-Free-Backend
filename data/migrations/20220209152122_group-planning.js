@@ -1,4 +1,4 @@
-const { table } = require("console");
+
 
 exports.up = function(knex) {
     return knex.schema
@@ -45,9 +45,10 @@ exports.up = function(knex) {
     
     .createTable("events", (tbl) => {
       tbl.increments();
-      tbl.string("what", 256).notNullable();
-      tbl.datetime("when", {precision: 6}).notNullable();
-      tbl.string("where").notNullable();
+      tbl.string("what", 256);
+      tbl.datetime("when", {precision: 6});
+      tbl.string("where");
+      tbl.specificType("attending", "text ARRAY");
       tbl.boolean("poll").notNullable();
       tbl
         .integer("group_id")
@@ -70,6 +71,7 @@ exports.up = function(knex) {
             .notNullable()
             .references("id")
             .inTable("events")
+            .unique()
             .onUpdate("CASCADE")
             .onDelete("CASCADE");
     })
