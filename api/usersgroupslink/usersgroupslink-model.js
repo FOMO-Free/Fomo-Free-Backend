@@ -9,6 +9,10 @@ const findByGroupId = (id) => {
     return db("usersgroupslink").select("user_id").where("group_id", id);
 }
 
+const findLink = (group_id,user_id) => {
+    return db("usersgroupslink").select("*").where({user_id:user_id,group_id:group_id}).first();
+}
+
 const add = async (group_id,user_id) => {
     const [usergrouplink] = await db("usersgroupslink").insert({user_id:user_id,group_id:group_id},"*");
     const user = db("users").where("user_id",usergrouplink.user_id).first();
@@ -29,5 +33,6 @@ const remove = async (group_id, user_id) => {
     findByUserId,
     add,
     findByGroupId,
+    findLink,
     remove,
 };

@@ -5,8 +5,12 @@ const helmet = require("helmet");
 const cors = require("cors");
 
 // ROUTERS
-const UsersRouter = require("./users/users-router.js");
+const UsersRouter = require("./users/users-router");
+const AuthRouter = require("./auth/auth-router");
+const GroupsRouter = require("./groups/groups-router");
+const PollsRouter = require("./polls/polls-router");
 
+const { restricted } = require("./middleware/middleware.js");
 
 const server = express();
 
@@ -16,7 +20,10 @@ server.use(cors());
 
 // ENDPOINTS
 
-server.use("/api/users", UsersRouter);
+server.use("/api/auth", AuthRouter)
+server.use("/api/users", restricted, UsersRouter);
+server.use("/api/groups", restricted, GroupsRouter);
+server.use("/api/polls", restricted, PollsRouter);
 
 
 // CATCH ALL

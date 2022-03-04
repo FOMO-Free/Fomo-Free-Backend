@@ -5,6 +5,7 @@ const {
   checkRegistrationFields,
   checkUniqueUsername,
   checkUniqueEmail,
+  checkIfUsernameExists,
   makeToken,
 } = require("../middleware/middleware.js");
 
@@ -39,7 +40,6 @@ router.post("/login", checkIfUsernameExists, (req, res, next) => {
         res.status(200).json({
           message: `${savedUser.username} is back!`,
           token,
-          userID: savedUser.id
         });
       } else {
         res
@@ -49,4 +49,5 @@ router.post("/login", checkIfUsernameExists, (req, res, next) => {
     })
     .catch(next);
 });
+
 module.exports = router;

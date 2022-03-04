@@ -48,7 +48,7 @@ router.post("/:groupid/:userid", (req, res, next) => {
     .catch(next(err));
 });
 
-router.delete("/:groupid/:userid", (req, res, next) => {
+router.delete("/:groupid/:userid",checkAdmin, (req, res, next) => {
   GroupUser.remove(req.params.groupid,req.params.userid)
     .then(deletedConnection => {
       res.status(200).json(deletedConnection);
