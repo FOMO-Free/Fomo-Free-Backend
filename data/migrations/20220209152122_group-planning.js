@@ -6,7 +6,23 @@ exports.up = function(knex) {
         tbl.increments();
         tbl.string("username", 128).notNullable().unique();
         tbl.string("password", 128).notNullable();
-        tbl.string("email", 128).notNullable();
+        tbl.string("email", 128).notNullable().unique();
+        tbl.string("pic");
+    })
+
+    .createTable("personalevents", (tbl) => {
+        tbl
+            .integer("user_id")
+            .unsigned()
+            .notNullable()
+            .references("id")
+            .inTable("users")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
+        tbl.string("what");
+        tbl.datetime("start", {precision: 0});
+        tbl.datetime("end", {precision: 0});
+        tbl.boolean("affects free time").notNullable();
     })
 
     .createTable("groups", (tbl) => {
@@ -46,7 +62,8 @@ exports.up = function(knex) {
     .createTable("events", (tbl) => {
       tbl.increments();
       tbl.string("what", 256);
-      tbl.datetime("when", {precision: 6});
+      tbl.datetime("start", {precision: 0});
+      tbl.datetime("end", {precision: 0});
       tbl.string("where");
       tbl.specificType("attending", "text ARRAY");
       tbl.boolean("poll").notNullable();

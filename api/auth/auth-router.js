@@ -8,11 +8,12 @@ const {
   checkIfUsernameExists,
   makeToken,
 } = require("../middleware/middleware.js");
+const secrets = require("../secrets/index")
 
 
 router.post("/register", checkRegistrationFields, checkUniqueUsername, checkUniqueEmail, (req, res, next) => {
     const user = req.body;
-    const rounds = process.env.BCRYPT_ROUNDS || 8;
+    const rounds = secrets.BCRYPT_ROUNDS;
     const hash = bcrypt.hashSync(user.password, rounds);
   
     user.password = hash;
