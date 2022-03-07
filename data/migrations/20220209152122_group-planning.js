@@ -1,5 +1,3 @@
-
-
 exports.up = function(knex) {
     return knex.schema
     .createTable("users", (tbl) => {
@@ -11,6 +9,7 @@ exports.up = function(knex) {
     })
 
     .createTable("personalevents", (tbl) => {
+        tbl.increments();
         tbl
             .integer("user_id")
             .unsigned()
@@ -116,5 +115,6 @@ exports.down = function(knex) {
     .dropTableIfExists("events")
     .dropTableIfExists("usersgroupslink")
     .dropTableIfExists("groups")
+    .dropTableIfExists("personalevents")
     .dropTableIfExists("users");
 };
