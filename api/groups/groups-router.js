@@ -2,6 +2,8 @@ const router = require("express").Router();
 const Groups = require("./groups-model");
 const GroupUser = require("../usersgroupslink/usersgroupslink-model");
 const Users = require("../users/users-model")
+const Attendings = require("../attending/attending-model")
+const PersonalEvents = require("../personalevents/personalevents-model")
 const {checkGroupExists, checkAdmin, checkLinkExists} = require("../middleware/middleware")
   
 router.get("/:id", (req, res, next) => {
@@ -22,7 +24,29 @@ router.put("/:id", (req, res, next) => {
 });
 
 router.get("/:id/availability", (req,res,next) => {
-    
+    const user_events = {}
+    GroupUser.findByGroupId(req.params.id)
+      .then(users => {
+        users.forEach(user => {
+          let eventtimes = []
+          Attendings.findByUserId(user.id)
+            .then(events => {
+              events.forEach(event => {
+                eventtimes.push([event.starttime,event.endtime])
+              })
+              PersonalEvents.findByUserId(user.id)
+                .then(events => {
+                  events.forEach(event => {
+                    eventtimes.push([event.starttime,event.endtime])
+                  })
+                  user_events[user.id] = eventtimes
+                })
+                .catch(next);
+            })
+            .catch(next);
+        })
+      })
+      .catch(next);
 })
 
 router.get("/:id/users", (req, res, next) => {
@@ -39,7 +63,7 @@ router.get("/:id/users", (req, res, next) => {
           })
       })
     })
-    .catch(next(err));
+    .catch(next);
 })
 
 router.post("/")
