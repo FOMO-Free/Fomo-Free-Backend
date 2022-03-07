@@ -1,2 +1,2 @@
-# Larson_Group_Planner_Backend
-Backend for accessing Group Planner API
+# FOMO Free Backend
+Backend for accessing FOMO Free API
