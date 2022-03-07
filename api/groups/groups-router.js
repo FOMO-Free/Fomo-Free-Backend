@@ -21,6 +21,9 @@ router.put("/:id", (req, res, next) => {
       .catch(next);
 });
 
+router.get("/:id/availability", (req,res,next) => {
+    
+})
 
 router.delete("/:id/:userid/", checkGroupExists, checkLinkExists, checkAdmin, (req,res,next) => {
     GroupUser.remove(req.param.id,req.param.userid)

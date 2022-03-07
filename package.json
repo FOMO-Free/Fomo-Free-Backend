@@ -9,7 +9,7 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "resetdb": "npm run rollback && npm run migrate && npm run seed"
+    "resetdb": "npm run rollback && npm run migrate"
   },
   "engines": {
     "node": "14.16.0",
