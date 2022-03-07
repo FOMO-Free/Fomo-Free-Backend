@@ -25,6 +25,25 @@ router.get("/:id/availability", (req,res,next) => {
     
 })
 
+router.get("/:id/users", (req, res, next) => {
+  GroupUser.findByGroupId(req.params.groupid)
+    .then(connections => {
+      const users = [];
+      connections.forEach(id => {
+        Users.findById(id)
+          .then(user => {
+            users.push(user)
+            if(users.length === connections.length){
+              res.status(200).json(users);
+            }
+          })
+      })
+    })
+    .catch(next(err));
+})
+
+router.post("/")
+
 router.delete("/:id/:userid/", checkGroupExists, checkLinkExists, checkAdmin, (req,res,next) => {
     GroupUser.remove(req.param.id,req.param.userid)
       .then(message => {

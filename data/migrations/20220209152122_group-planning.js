@@ -1,16 +1,30 @@
-const { table } = require("console");
-
-
 exports.up = function(knex) {
     return knex.schema
     .createTable("users", (tbl) => {
         tbl.increments();
         tbl.string("username", 128).notNullable().unique();
         tbl.string("password", 128).notNullable();
-        tbl.string("email", 128).notNullable();
+        tbl.string("email", 128).notNullable().unique();
+        tbl.string("pic");
     })
 
-    .createTable("personalEvents", (tbl) => {
+    .createTable("personalevents", (tbl) => {
+        tbl.increments();
+        tbl
+            .integer("user_id")
+            .unsigned()
+            .notNullable()
+            .references("id")
+            .inTable("users")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
+        tbl.string("what");
+        tbl.datetime("start", {precision: 0});
+        tbl.datetime("end", {precision: 0});
+        tbl.boolean("affects free time").notNullable();
+    })
+
+    .createTable("personalevents", (tbl) => {
         tbl.increments();
         tbl.string("what").notNullable();
         tbl.string("where");
@@ -137,6 +151,6 @@ exports.down = function(knex) {
     .dropTableIfExists("events")
     .dropTableIfExists("usersgroupslink")
     .dropTableIfExists("groups")
-    .dropTableIfExists("personalEvents")
+    .dropTableIfExists("personalevents")
     .dropTableIfExists("users");
 };
