@@ -10,22 +10,6 @@ exports.up = function(knex) {
 
     .createTable("personalevents", (tbl) => {
         tbl.increments();
-        tbl
-            .integer("user_id")
-            .unsigned()
-            .notNullable()
-            .references("id")
-            .inTable("users")
-            .onUpdate("CASCADE")
-            .onDelete("CASCADE");
-        tbl.string("what");
-        tbl.datetime("start", {precision: 0});
-        tbl.datetime("end", {precision: 0});
-        tbl.boolean("affects free time").notNullable();
-    })
-
-    .createTable("personalevents", (tbl) => {
-        tbl.increments();
         tbl.string("what").notNullable();
         tbl.string("where");
         tbl.datetime("starttime", { precision: 6, useTz: true }).notNullable();

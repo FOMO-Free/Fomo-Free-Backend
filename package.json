@@ -9,7 +9,11 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "seed": "knex seed:run",
-    "resetdb": "npm run rollback && npm run migrate"
+    "resetdb": "npm run rollback && npm run migrate",
+    "migrateh": "heroku run knex migrate:latest -a fomo-free",
+    "rollbackh": "heroku run knex migrate:rollback -a fomo-free",
+    "databaseh": "heroku pg:psql -a fomo-free",
+    "seedh": "heroku run knex seed:run -a fomo-free"
   },
   "engines": {
     "node": "14.16.0",
