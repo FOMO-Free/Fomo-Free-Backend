@@ -27,6 +27,7 @@ exports.up = function(knex) {
     .createTable("groups", (tbl) => {
         tbl.increments();
         tbl.string("name", 128).notNullable();
+        tbl.string("pic");
         tbl.string("description");
         tbl.string("password", 128);
         tbl
