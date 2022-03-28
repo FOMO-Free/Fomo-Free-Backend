@@ -80,6 +80,7 @@ exports.up = function(knex) {
         tbl.datetime("created at", { precision: 6, useTz: true }).notNullable().defaultTo(knex.fn.now(6));
         tbl.datetime("expiration", { precision: 6, useTz: true });
         tbl.boolean("active").notNullable().defaultTo(true);
+        tbl.specificType('voters', 'text[]');
         tbl
             .integer("event_id")
             .unsigned()
@@ -97,6 +98,7 @@ exports.up = function(knex) {
         tbl.datetime("starttime", { precision: 6, useTz: true });
         tbl.datetime("endtime", { precision: 6, useTz: true });
         tbl.string("where");
+        tbl.integer("votes").defaultTo(0)
         tbl
             .integer("poll_id")
             .unsigned()

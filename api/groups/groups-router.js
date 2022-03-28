@@ -66,7 +66,13 @@ router.get("/:id/users", (req, res, next) => {
     .catch(next);
 })
 
-router.post("/")
+router.post("/", (req, res, next) => {
+  Groups.add(req.body)
+    .then(group => {
+      res.status(200).json({message: `${group} has been added`});
+    })
+    .catch(next)
+})
 
 router.delete("/:id/:userid/", checkGroupExists, checkLinkExists, checkAdmin, (req,res,next) => {
     GroupUser.remove(req.param.id,req.param.userid)

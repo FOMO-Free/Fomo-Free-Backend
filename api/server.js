@@ -9,6 +9,7 @@ const UsersRouter = require("./users/users-router");
 const AuthRouter = require("./auth/auth-router");
 const GroupsRouter = require("./groups/groups-router");
 const PollsRouter = require("./polls/polls-router");
+const UsersGroupsRouter = require("./usersgroupslink/usersgroupslink-router")
 
 const { restricted } = require("./middleware/middleware.js");
 
@@ -24,6 +25,7 @@ server.use("/api/auth", AuthRouter)
 server.use("/api/users", restricted, UsersRouter);
 server.use("/api/groups", restricted, GroupsRouter);
 server.use("/api/polls", restricted, PollsRouter);
+server.use("/api/usergroup", restricted, UsersGroupsRouter);
 
 
 // CATCH ALL

@@ -23,8 +23,10 @@ router.get("/group/:groupid", (req, res, next) => {
 });
 
 
-router.get("/user/:userid", (req, res, next) => {
-  GroupUser.findByUserId(req.params.userid)
+router.get("/user", (req, res, next) => {
+  const token = req.headers.authorization;
+  const userid = jwt.decode(token).subject
+  GroupUser.findByUserId(userid)
     .then(connections => {
       const groups = [];
       connections.forEach(id => {

@@ -2,11 +2,11 @@ const db = require("../../data/dbConfig");
 
 
 const findById = (id) => {
-    return db("polls").select("id","created at","expiration","active","event_id").where("id", id).first();
+    return db("polls").select("id","created at","expiration","active","event_id","voters").where("id", id).first();
 };
 
 const findByEventId = (id) => {
-    return db("polls").select("id","created at","expiration","active","event_id").where("event_id", id);
+    return db("polls").select("id","created at","expiration","active","event_id","voters").where("event_id", id);
 };
 
 const add = async (poll) => {
