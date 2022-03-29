@@ -21,7 +21,7 @@ router.get("/group/:groupid", (req, res, next) => {
           })
       })
     })
-    .catch(next(err));
+    .catch(next());
 });
 
 
@@ -41,7 +41,7 @@ router.get("/user", (req, res, next) => {
           })
       })
     })
-    .catch(next(err));
+    .catch(next());
 });
 
 router.post("/:groupid/:userid", (req, res, next) => {
@@ -49,7 +49,7 @@ router.post("/:groupid/:userid", (req, res, next) => {
     .then(connection => {
       res.status(200).json(connection);
     })
-    .catch(next(err));
+    .catch(next());
 });
 
 router.delete("/:groupid/:userid",checkAdmin, (req, res, next) => {
@@ -57,7 +57,7 @@ router.delete("/:groupid/:userid",checkAdmin, (req, res, next) => {
     .then(deletedConnection => {
       res.status(200).json(deletedConnection);
     })
-    .catch(next(err));
+    .catch(next());
 });
 
 module.exports = router;
