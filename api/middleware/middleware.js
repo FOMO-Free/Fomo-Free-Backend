@@ -111,7 +111,7 @@ const restricted = (req, res, next) => {
     if (!token || jwt.decode(token).exp > now) {
         res.status(401).json("You need a valid token");
     } else {
-        jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
+        jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
         if (err) {
             res.status(403).json("Token is invalid " + err.message);
         } else {
