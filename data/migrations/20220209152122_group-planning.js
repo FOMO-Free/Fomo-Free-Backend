@@ -12,8 +12,8 @@ exports.up = function(knex) {
         tbl.increments();
         tbl.string("what").notNullable();
         tbl.string("where");
-        tbl.datetime("starttime", { precision: 6, useTz: true }).notNullable();
-        tbl.datetime("endtime", { precision: 6, useTz: true }).notNullable();
+        tbl.datetime("starttime", { precision: 0, useTz: true }).notNullable();
+        tbl.datetime("endtime", { precision: 0, useTz: true }).notNullable();
         tbl
             .integer("user_id")
             .unsigned()
@@ -62,8 +62,8 @@ exports.up = function(knex) {
     .createTable("events", (tbl) => {
       tbl.increments();
       tbl.string("what", 256);
-      tbl.datetime("starttime", { precision: 6, useTz: true });
-      tbl.datetime("endtime", { precision: 6, useTz: true });
+      tbl.datetime("starttime", { precision: 0, useTz: true });
+      tbl.datetime("endtime", { precision: 0, useTz: true });
       tbl.string("where");
       tbl.boolean("poll").notNullable();
       tbl
@@ -78,8 +78,8 @@ exports.up = function(knex) {
 
     .createTable("polls", (tbl) => {
         tbl.increments();
-        tbl.datetime("created at", { precision: 6, useTz: true }).notNullable().defaultTo(knex.fn.now(6));
-        tbl.datetime("expiration", { precision: 6, useTz: true });
+        tbl.datetime("created at", { precision: 0, useTz: true }).notNullable().defaultTo(knex.fn.now(6));
+        tbl.datetime("expiration", { precision: 0, useTz: true });
         tbl.boolean("active").notNullable().defaultTo(true);
         tbl.specificType('voters', 'text[]');
         tbl
@@ -96,8 +96,8 @@ exports.up = function(knex) {
     .createTable("choices", (tbl) => {
         tbl.increments()
         tbl.string("what", 256);
-        tbl.datetime("starttime", { precision: 6, useTz: true });
-        tbl.datetime("endtime", { precision: 6, useTz: true });
+        tbl.datetime("starttime", { precision: 0, useTz: true });
+        tbl.datetime("endtime", { precision: 0, useTz: true });
         tbl.string("where");
         tbl.integer("votes").defaultTo(0)
         tbl
