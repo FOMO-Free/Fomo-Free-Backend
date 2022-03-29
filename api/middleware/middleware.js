@@ -107,8 +107,7 @@ const makeToken = (user) => {
   
 const restricted = (req, res, next) => {
     const token = req.headers.authorization;
-    const now = Math.floor(Date.now() / 1000)
-    if (!token || jwt.decode(token).exp > now) {
+    if (!token) {
         res.status(401).json("You need a valid token");
     } else {
         jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
