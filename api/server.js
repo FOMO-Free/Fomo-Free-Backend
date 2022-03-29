@@ -1,4 +1,4 @@
-const dotenv = require("dotenv").config();
+require("dotenv").config();
 
 const express = require("express");
 const helmet = require("helmet");
@@ -29,9 +29,9 @@ server.use("/api/usergroup", restricted, UsersGroupsRouter);
 
 
 // CATCH ALL
-server.use('*', (req, res, next) => {
-  next({ status: 404, message: 'not found!' })
-})
+// server.use('*', (req, res, next) => {
+//   next({ status: 404, message: 'not found!' })
+// })
 
 server.use((err, req, res, next) => { 
   res.status(err.status || 500).json({
